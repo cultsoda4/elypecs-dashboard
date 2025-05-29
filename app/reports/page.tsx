@@ -268,7 +268,8 @@ export default function DashboardPage() {
     {
       id: "reports",
       title: "리포트",
-      icon: FileText,
+      icon: FileText
+      href: "/reports",
     },
     {
       id: "settings",
