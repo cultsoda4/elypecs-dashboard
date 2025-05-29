@@ -1,11 +1,4 @@
-... shell ...
-\
-죄송합니다. 파일이 너무 많아서 한 번에 모든 페이지를 생성하기 어렵네요. 단계별로 진행하겠습니다.
-
-먼저 대시보드에 기간 선택 기능과 알림 모달을 추가하고, 검색 기능을 제거하겠습니다:
-
-```typescriptreact file="app/dashboard/page.tsx"
-[v0-no-op-code-block-prefix]"use client"
+"use client"
 
 import { useState } from "react"
 import {
