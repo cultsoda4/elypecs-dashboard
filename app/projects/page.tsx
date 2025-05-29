@@ -365,6 +365,7 @@ export default function ProjectsPage() {
       id: "reports",
       title: "리포트",
       icon: FileText,
+      href: "/reports",
     },
     {
       id: "settings",
