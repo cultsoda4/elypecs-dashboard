@@ -283,4 +283,229 @@ export default function ConversionPage() {
                   <div className="flex items-center gap-1 text-sm px-2 py-1 rounded-full text-green-700 bg-green-50">
                     <span>-1.3%</span>
                   </div>
-                  <span className="text-slate-500 text-xs">지난주 대비</span
+                  <span className="text-slate-500 text-xs">지난주 대비</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Conversion Funnel */}
+          <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 mb-8">
+            <h2 className="text-xl font-semibold text-white mb-6">전환 퍼널</h2>
+            <div className="space-y-4">
+              {[
+                { step: "콘텐츠 진입", count: 1247, rate: 100, color: "bg-blue-500" },
+                { step: "씬 체험", count: 1122, rate: 90, color: "bg-green-500" },
+                { step: "마커 상호작용", count: 748, rate: 60, color: "bg-yellow-500" },
+                { step: "CTA 클릭", count: 374, rate: 30, color: "bg-orange-500" },
+                { step: "최종 전환", count: 159, rate: 12.8, color: "bg-red-500" },
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-4">
+                  <div className="w-24 text-slate-300 text-sm">{item.step}</div>
+                  <div className="flex-1 bg-slate-800 rounded-full h-8 relative overflow-hidden">
+                    <div
+                      className={`${item.color} h-full transition-all duration-1000 flex items-center justify-end pr-4`}
+                      style={{ width: `${item.rate}%` }}
+                    >
+                      <span className="text-white text-sm font-medium">{item.count}</span>
+                    </div>
+                  </div>
+                  <div className="w-16 text-slate-400 text-sm text-right">
+                    {typeof item.rate === 'number' ? (item.rate % 1 === 0 ? `${item.rate}%` : `${item.rate}%`) : item.rate}
+                  </div>
+                  {index < 4 && <ArrowRight className="w-4 h-4 text-slate-500" />}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Conversion by Time Period */}
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
+            <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6">
+              <h2 className="text-xl font-semibold text-white mb-6">시간대별 전환율</h2>
+              <div className="space-y-3">
+                {[
+                  { time: "09:00-12:00", rate: 15.2, count: 45 },
+                  { time: "12:00-15:00", rate: 18.7, count: 62 },
+                  { time: "15:00-18:00", rate: 12.3, count: 38 },
+                  { time: "18:00-21:00", rate: 8.9, count: 26 },
+                  { time: "21:00-24:00", rate: 5.1, count: 14 },
+                ].map((item, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-slate-800/30 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <span className="text-slate-300 font-medium w-24">{item.time}</span>
+                      <div className="flex-1 bg-slate-700 rounded-full h-2 w-32">
+                        <div
+                          className="bg-blue-500 h-full rounded-full transition-all duration-1000"
+                          style={{ width: `${(item.rate / 20) * 100}%` }}
+                        />
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-white font-semibold">{item.rate}%</p>
+                      <p className="text-slate-400 text-xs">{item.count}건</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6">
+              <h2 className="text-xl font-semibold text-white mb-6">디바이스별 전환율</h2>
+              <div className="space-y-3">
+                {[
+                  { device: "VR 헤드셋", rate: 22.4, count: 89, color: "bg-purple-500" },
+                  { device: "모바일", rate: 11.7, count: 156, color: "bg-blue-500" },
+                  { device: "데스크톱", rate: 8.3, count: 98, color: "bg-green-500" },
+                  { device: "태블릿", rate: 6.1, count: 23, color: "bg-orange-500" },
+                ].map((item, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-slate-800/30 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-3 h-3 ${item.color} rounded-full`}></div>
+                      <span className="text-slate-300 font-medium w-20">{item.device}</span>
+                      <div className="flex-1 bg-slate-700 rounded-full h-2 w-32">
+                        <div
+                          className={`${item.color} h-full rounded-full transition-all duration-1000`}
+                          style={{ width: `${(item.rate / 25) * 100}%` }}
+                        />
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-white font-semibold">{item.rate}%</p>
+                      <p className="text-slate-400 text-xs">{item.count}건</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Top Converting Scenes */}
+          <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 mb-8">
+            <h2 className="text-xl font-semibold text-white mb-6">전환율 높은 씬 TOP 5</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-slate-700/50">
+                    <th className="text-left py-3 px-4 text-slate-400 font-medium">씬명</th>
+                    <th className="text-left py-3 px-4 text-slate-400 font-medium">방문자</th>
+                    <th className="text-left py-3 px-4 text-slate-400 font-medium">전환수</th>
+                    <th className="text-left py-3 px-4 text-slate-400 font-medium">전환율</th>
+                    <th className="text-left py-3 px-4 text-slate-400 font-medium">트렌드</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { scene: "제품 데모존", visitors: 456, conversions: 98, rate: 21.5, trend: "+3.2%" },
+                    { scene: "브랜드 스토리", visitors: 389, conversions: 67, rate: 17.2, trend: "+1.8%" },
+                    { scene: "고객 후기", visitors: 298, conversions: 43, rate: 14.4, trend: "-0.5%" },
+                    { scene: "기술 소개", visitors: 342, conversions: 41, rate: 12.0, trend: "+2.1%" },
+                    { scene: "문의하기", visitors: 267, conversions: 28, rate: 10.5, trend: "+0.9%" },
+                  ].map((item, index) => (
+                    <tr key={index} className="border-b border-slate-700/30">
+                      <td className="py-3 px-4 text-white font-medium">{item.scene}</td>
+                      <td className="py-3 px-4 text-slate-300">{item.visitors.toLocaleString()}명</td>
+                      <td className="py-3 px-4 text-slate-300">{item.conversions}건</td>
+                      <td className="py-3 px-4">
+                        <span className="text-white font-semibold">{item.rate}%</span>
+                      </td>
+                      <td className="py-3 px-4">
+                        <span className={`text-sm px-2 py-1 rounded-full ${
+                          item.trend.startsWith('+') ? 'text-green-700 bg-green-50' : 'text-red-700 bg-red-50'
+                        }`}>
+                          {item.trend}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Conversion Optimization Recommendations */}
+          <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6 mb-8">
+            <h2 className="text-xl font-semibold text-white mb-6">전환 최적화 제안</h2>
+            <div className="space-y-4">
+              {[
+                {
+                  title: "모바일 전환율 개선",
+                  description: "모바일 디바이스의 전환율이 11.7%로 상대적으로 낮습니다. UX 개선을 통해 전환율을 높일 수 있습니다.",
+                  impact: "예상 개선: +3-5%",
+                  priority: "높음",
+                  color: "border-red-500/30 bg-red-500/5"
+                },
+                {
+                  title: "오후 시간대 콘텐츠 최적화",
+                  description: "15:00-18:00 시간대의 전환율이 낮습니다. 이 시간대에 맞는 콘텐츠 전략이 필요합니다.",
+                  impact: "예상 개선: +2-3%",
+                  priority: "중간",
+                  color: "border-yellow-500/30 bg-yellow-500/5"
+                },
+                {
+                  title: "CTA 버튼 위치 개선",
+                  description: "마커 상호작용에서 CTA 클릭으로의 전환이 50%입니다. CTA 버튼의 위치와 디자인을 개선하세요.",
+                  impact: "예상 개선: +4-6%",
+                  priority: "높음",
+                  color: "border-red-500/30 bg-red-500/5"
+                }
+              ].map((item, index) => (
+                <div key={index} className={`p-4 rounded-lg border ${item.color}`}>
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-white font-semibold">{item.title}</h3>
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      item.priority === '높음' ? 'text-red-700 bg-red-100' : 'text-yellow-700 bg-yellow-100'
+                    }`}>
+                      {item.priority}
+                    </span>
+                  </div>
+                  <p className="text-slate-400 text-sm mb-2">{item.description}</p>
+                  <p className="text-blue-400 text-sm font-medium">{item.impact}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Conversion Goals Progress */}
+          <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-xl p-6">
+            <h2 className="text-xl font-semibold text-white mb-6">전환 목표 달성 현황</h2>
+            <div className="space-y-6">
+              {[
+                { goal: "월간 전환율 목표", current: 12.8, target: 15.0, unit: "%" },
+                { goal: "일일 전환 수 목표", current: 159, target: 200, unit: "건" },
+                { goal: "전환당 비용 목표", current: 2450, target: 2000, unit: "원" }
+              ].map((item, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-300 font-medium">{item.goal}</span>
+                    <span className="text-white">
+                      {item.current.toLocaleString()}{item.unit} / {item.target.toLocaleString()}{item.unit}
+                    </span>
+                  </div>
+                  <div className="w-full bg-slate-700 rounded-full h-3">
+                    <div
+                      className={`h-full rounded-full transition-all duration-1000 ${
+                        item.current >= item.target ? 'bg-green-500' : 'bg-blue-500'
+                      }`}
+                      style={{ width: `${Math.min((item.current / item.target) * 100, 100)}%` }}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-slate-400">
+                      {((item.current / item.target) * 100).toFixed(1)}% 달성
+                    </span>
+                    <span className={`${
+                      item.current >= item.target ? 'text-green-400' : 'text-slate-400'
+                    }`}>
+                      {item.current >= item.target ? '목표 달성' : `${item.target - item.current}${item.unit} 남음`}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  )
+}
